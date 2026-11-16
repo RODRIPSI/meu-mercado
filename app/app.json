@@ -1,0 +1,18 @@
+{
+  "expo": {
+    "name": "Meu Mercado Inteligente",
+    "slug": "meu-mercado-inteligente",
+    "scheme": "mmi",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      ["expo-camera", { "cameraPermission": "Usamos a câmera para ler códigos de barras dos produtos." }],
+      "expo-notifications"
+    ],
+    "android": { "package": "br.com.meumercado.app", "permissions": ["CAMERA"] },
+    "experiments": { "typedRoutes": false }
+  }
+}
