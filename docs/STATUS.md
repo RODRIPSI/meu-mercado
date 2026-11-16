@@ -33,3 +33,7 @@ Legenda: ✅ implementado **e testado** · 🟡 implementado, **ainda não testa
 - Sem seleção de arquivo (importação por texto colado) e sem notificações push.
 - Sem testes de interface nem E2E; sem iOS/web testados.
 - Preços “DEMO” existem só se você rodar o seed e ficam sempre rotulados.
+
+
+## Encartes (novo)
+Ver `docs/ENCARTES.md`: módulo de importação de encartes por IA de visão (Guanabara primeiro). Banco, validação, revisão e telas implementados e testados; leitura real do PDF depende de `ANTHROPIC_API_KEY` e de habilitar a fonte.

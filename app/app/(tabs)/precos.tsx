@@ -25,6 +25,7 @@ export default function Comparador() {
           <Button title="Registrar preço" style={{ flex: 1 }} onPress={() => router.push('/preco/novo')} />
         </Row>
       ) : null}
+      <Button title="Ofertas dos encartes" kind="secondary" onPress={() => router.push('/ofertas')} />
       {house!.canEdit ? <Button title="Importar preços (CSV)" kind="ghost" onPress={() => router.push('/importar')} /> : null}
       {!loading && shown.length === 0 ? <Empty title="Nenhum produto cadastrado" hint="Cadastre produtos e registre os preços que você encontrar. O app nunca inventa preços." /> : null}
       {shown.map((p) => {
