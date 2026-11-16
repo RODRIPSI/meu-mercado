@@ -1,24 +1,31 @@
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider, useTheme } from '@/theme';
 import { AuthProvider, useAuth } from '@/features/auth';
 import { HouseProvider, useHouse } from '@/features/house';
 import { CatalogProvider } from '@/features/catalog';
-import { isConfigured } from '@/lib/supabase';
-import { Notice, Screen, T } from '@/components/ui';
+import { Platform } from 'react-native';
+import { isConfigured, saveWebConfig } from '@/lib/supabase';
+import { validateConfig } from '@/lib/config';
+import { Button, Field, Notice, Screen, T } from '@/components/ui';
 
 function Gate() {
   const { colors, dark } = useTheme();
   const { session, loading, recovering } = useAuth();
   const { house, loading: hl } = useHouse();
+  const router = useRouter();
+  const stage = `${session?.user.id ?? 'x'}|${recovering}|${!!house}`;
+  // quando o estado muda (entrou, saiu, criou casa), volta à porta de entrada que escolhe o destino certo
+  React.useEffect(() => { if (!loading && !hl) router.replace('/'); }, [stage, loading, hl]);
   if (loading || (session && hl)) return <View style={{ flex: 1, justifyContent: 'center', backgroundColor: colors.bg }}><ActivityIndicator color={colors.primary} /></View>;
   const opts = { headerStyle: { backgroundColor: colors.bg }, headerTintColor: colors.text, headerShadowVisible: false, contentStyle: { backgroundColor: colors.bg } };
   return (
     <>
       <StatusBar style={dark ? 'light' : 'dark'} />
       <Stack screenOptions={opts}>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Protected guard={!session}>
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         </Stack.Protected>
@@ -47,14 +54,31 @@ function Gate() {
   );
 }
 
+function SetupWeb() {
+  const [url, setUrl] = React.useState(''); const [key, setKey] = React.useState('');
+  const err = url || key ? validateConfig(url, key) : null;
+  return (
+    <Screen>
+      <T variant="title" style={{ marginTop: 32 }}>Conectar ao seu banco</T>
+      <T variant="small">Cole uma única vez os dados do seu projeto Supabase (Project Settings → API). Ficam guardados só neste aparelho.</T>
+      <Field label="Project URL" value={url} onChangeText={setUrl} autoCapitalize="none" placeholder="https://xxxx.supabase.co" />
+      <Field label="Chave anon public" value={key} onChangeText={setKey} autoCapitalize="none" />
+      {err ? <Notice tone="danger">{err}</Notice> : null}
+      <Button title="Salvar e abrir" disabled={!url || !key || !!err} onPress={() => saveWebConfig(url, key)} />
+    </Screen>
+  );
+}
+
 export default function Root() {
   if (!isConfigured) {
     return (
       <ThemeProvider>
-        <Screen>
-          <T variant="title">Configuração pendente</T>
-          <Notice tone="danger">Defina EXPO_PUBLIC_SUPABASE_URL e EXPO_PUBLIC_SUPABASE_ANON_KEY no arquivo .env (veja docs/ANDROID.md) e reinicie o app.</Notice>
-        </Screen>
+        {Platform.OS === 'web' ? <SetupWeb /> : (
+          <Screen>
+            <T variant="title">Configuração pendente</T>
+            <Notice tone="danger">Defina EXPO_PUBLIC_SUPABASE_URL e EXPO_PUBLIC_SUPABASE_ANON_KEY no arquivo .env (veja docs/ANDROID.md) e reinicie o app.</Notice>
+          </Screen>
+        )}
       </ThemeProvider>
     );
   }

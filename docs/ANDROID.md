@@ -1,4 +1,15 @@
-# Como rodar no Android
+# Como rodar
+
+## Caminho mais simples: pelo navegador (site instalável)
+Depois de criar o banco (passo 1 abaixo), o app abre como site em **https://rodripsi.github.io/meu-mercado/** e pode ser instalado na tela inicial do Android.
+1. No GitHub, abra o repositório → **Configurações** → **Pages** → em **Source** (Origem) escolha **GitHub Actions**. (Só uma vez.)
+2. Vá na aba **Actions**, abra **Publicar no GitHub Pages** e confirme que terminou com ✓. Toda atualização enviada à `main` republica sozinha.
+3. No Chrome do Android abra o endereço acima. Na primeira vez o app pede a **Project URL** e a chave **anon public** do Supabase: cole uma vez; ficam guardadas só naquele aparelho. (O app recusa a chave secreta `service_role`.)
+4. No menu ⋮ do Chrome toque em **Instalar app** / **Adicionar à tela inicial**.
+
+Cada morador abre o mesmo endereço no seu aparelho e entra com a própria conta.
+
+# Alternativa: app nativo com Expo Go
 
 ## 1. Criar o banco (Supabase) — uma vez
 1. Crie um projeto em supabase.com (região mais próxima, ex.: São Paulo).

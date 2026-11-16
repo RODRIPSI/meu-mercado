@@ -13,7 +13,7 @@ export default function TabsLayout() {
       tabBarStyle: { backgroundColor: colors.surface, borderTopColor: colors.border, height: 64, paddingBottom: 8, paddingTop: 6 },
       tabBarLabelStyle: { fontSize: 12 },
     }}>
-      <Tabs.Screen name="index" options={{ title: 'Listas', tabBarIcon: icon('list') }} />
+      <Tabs.Screen name="listas" options={{ title: 'Listas', tabBarIcon: icon('list') }} />
       <Tabs.Screen name="precos" options={{ title: 'Preços', tabBarIcon: icon('pricetags') }} />
       <Tabs.Screen name="mercados" options={{ title: 'Mercados', tabBarIcon: icon('storefront') }} />
       <Tabs.Screen name="casa" options={{ title: 'Casa', tabBarIcon: icon('home') }} />

@@ -5,7 +5,8 @@ Legenda: ✅ implementado **e testado** · 🟡 implementado, **ainda não testa
 ## O que foi realmente verificado
 - ✅ Esquema SQL, RLS, RPCs, gatilhos e seed demo — rodados em PostgreSQL 16 local com um *stub* do Supabase (isolamento entre casas, convites, leitura-apenas, último admin, anti-duplicação, concorrência por versão, preço zero rejeitado, histórico, auditoria). **Não rodei contra um projeto Supabase real.**
 - ✅ 69 testes de regras: unidade/preço por kg·litro, embalagens, status/confiabilidade, comparador, otimizador A/B/C (parcial, promoção por volume, equivalentes, filial≠rede, deslocamento), histórico/estatística com mínimo de dados, despensa, finanças, alertas (dedup, horário silencioso), fila offline/conflitos, importador CSV.
-- ✅ `tsc --noEmit` sem erros e empacotamento Android (Hermes) concluído. **O app não foi aberto em um aparelho.**
+- ✅ `tsc --noEmit` sem erros e empacotamento Android (Hermes) concluído. **O app não foi aberto em um aparelho Android.**
+- ✅ Versão web (PWA) gerada e aberta em Chrome sem interface gráfica: as telas **Conectar ao seu banco** e **Login** renderizam e a rota de entrada funciona. Nada além disso foi exercitado na web (sem Supabase real não há como entrar).
 
 ## Por requisito
 | # | Requisito | Estado |
