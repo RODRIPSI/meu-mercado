@@ -8,4 +8,4 @@ App familiar (Android primeiro) para listas compartilhadas, comparação de pre�
 
 Princípios: nunca inventar preços · ausência de preço nunca vira R$ 0,00 · preço pertence a uma filial · tudo que é parcial ou desatualizado é sinalizado.
 
-Comece por `docs/ANDROID.md` (site instalável via GitHub Pages).
+Comece por `docs/ANDROID.md` (site instalável via GitHub Pages: https://rodripsi.github.io/meu-mercado/).
