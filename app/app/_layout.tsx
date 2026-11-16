@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
+import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { ThemeProvider, useTheme } from '@/theme';
 import { AuthProvider, useAuth } from '@/features/auth';
@@ -15,10 +15,6 @@ function Gate() {
   const { colors, dark } = useTheme();
   const { session, loading, recovering } = useAuth();
   const { house, loading: hl } = useHouse();
-  const router = useRouter();
-  const stage = `${session?.user.id ?? 'x'}|${recovering}|${!!house}`;
-  // quando o estado muda (entrou, saiu, criou casa), volta à porta de entrada que escolhe o destino certo
-  React.useEffect(() => { if (!loading && !hl) router.replace('/'); }, [stage, loading, hl]);
   if (loading || (session && hl)) return <View style={{ flex: 1, justifyContent: 'center', backgroundColor: colors.bg }}><ActivityIndicator color={colors.primary} /></View>;
   const opts = { headerStyle: { backgroundColor: colors.bg }, headerTintColor: colors.text, headerShadowVisible: false, contentStyle: { backgroundColor: colors.bg } };
   return (
