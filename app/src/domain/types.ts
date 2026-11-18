@@ -32,6 +32,9 @@ export interface Store {
   name: string;
   chainName?: string;
   distanceKm: number | null;     // null = desconhecida
+  active?: boolean;              // false = fora da otimização
+  chainId?: string | null;
+  address?: string | null;
 }
 
 export interface ListItem {

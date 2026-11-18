@@ -18,5 +18,5 @@ P="psql -h $D -p 54329 -U postgres -v ON_ERROR_STOP=1 -q"
 $P -c "create database t" ; P="$P -d t"
 $P -f tests/00_stub_supabase.sql
 for f in migrations/*.sql demo/seed_demo.sql; do echo "→ $f"; $P -f "$f"; done
-echo "→ testes"; $P -f tests/01_rls_test.sql; $P -f tests/02_encartes_test.sql
+echo "→ testes"; $P -f tests/01_rls_test.sql; $P -f tests/02_encartes_test.sql; $P -f tests/03_listas_test.sql
 echo "OK: todos os testes de banco passaram"

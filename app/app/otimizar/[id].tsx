@@ -19,7 +19,7 @@ export default function Otimizar() {
   const { items } = useListItems(id, house?.id); const { stores, products, productMap, prices, equivalences, prefs } = useCatalog();
   const [mode, setMode] = useState<Mode>('A'); const [sel, setSel] = useState<string[] | null>(null);
   const [km, setKm] = useState(''); const [stops, setStops] = useState('3');
-  const chosen = sel ?? stores.map((s) => s.id);
+  const chosen = sel ?? stores.filter((s) => s.active !== false).map((s) => s.id);
   const toggle = (sid: string) => setSel(chosen.includes(sid) ? chosen.filter((x) => x !== sid) : [...chosen, sid]);
 
   const result = useMemo(() => {

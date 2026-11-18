@@ -1,7 +1,7 @@
 // Fila offline de alterações em itens de lista + reconciliação sem perda silenciosa.
 
-export interface NewItem { clientId: string; listId: string; name: string; productId?: string | null; qty: number; unit: string }
-export type Patch = Partial<{ name: string; qty: number; unit: string; status: 'pending' | 'bought' | 'skipped'; notes: string | null; priority: number; assignee: string | null }>;
+export interface NewItem { clientId: string; listId: string; name: string; productId?: string | null; qty: number; unit: string; categoryId?: string | null; notes?: string | null; preferredBrand?: string | null; position?: number | null; sourceText?: string | null }
+export type Patch = Partial<{ name: string; qty: number; unit: string; status: 'pending' | 'bought' | 'skipped'; notes: string | null; priority: number; assignee: string | null; preferred_brand: string | null; position: number | null; list_id: string; category_id: string | null }>;
 
 export type Mutation =
   | { kind: 'insert'; item: NewItem; queuedAt: string }

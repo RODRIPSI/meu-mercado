@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'expo-router';
-import { Badge, Button, Card, Chip, Empty, Field, Notice, Row, Screen, T } from '@/components/ui';
+import { Badge, Button, Card, Chip, Empty, Field, Notice, Row, T } from '@/components/ui';
 import { supabase, friendlyError } from '@/lib/supabase';
 import { useHouse } from '@/features/house';
 import { useCatalog } from '@/features/catalog';
@@ -11,7 +11,7 @@ import { fmtDate, mapOffer } from '@/lib/offers';
 
 interface SourceInfo { connector: string; enabled: boolean; last_status: string | null; last_checked_at: string | null }
 
-export default function Ofertas() {
+export default function OffersPanel() {
   const { house } = useHouse(); const router = useRouter(); const { products } = useCatalog();
   const [offers, setOffers] = useState<Offer[]>([]); const [items, setItems] = useState<ListItem[]>([]); const [listName, setListName] = useState('');
   const [sources, setSources] = useState<SourceInfo[]>([]); const [curator, setCurator] = useState(false); const [pending, setPending] = useState(0);
@@ -54,7 +54,7 @@ export default function Ofertas() {
 
   const src = sources[0];
   return (
-    <Screen>
+    <>
       <Notice tone="warn">Ofertas lidas de encartes por inteligência artificial. Só aparecem as que passaram na validação (preço e validade conhecidos). Confira o preço na prateleira — o encarte vale “enquanto durarem os estoques”.</Notice>
       {err ? <Notice tone="danger">{err}</Notice> : null}
       {msg ? <Notice tone="ok">{msg}</Notice> : null}
@@ -108,6 +108,6 @@ export default function Ofertas() {
           {o.conditions ? <T variant="small">{o.conditions}</T> : null}
         </Card>
       ))}
-    </Screen>
+    </>
   );
 }

@@ -37,3 +37,6 @@ Legenda: ✅ implementado **e testado** · 🟡 implementado, **ainda não testa
 
 ## Encartes (novo)
 Ver `docs/ENCARTES.md`: módulo de importação de encartes por IA de visão (Guanabara primeiro). Banco, validação, revisão e telas implementados e testados; leitura real do PDF depende de `ANTHROPIC_API_KEY` e de habilitar a fonte.
+
+## Listas avançadas e nova navegação (novo)
+Ver `docs/LISTAS.md`. Início, Ofertas (com Comparar produtos), Mercados com as 7 redes e filiais ativas/inativas, importação de lista e três visões de lista: implementados; verificados com navegador headless e dados simulados (não com o banco real). PDF/foto dependem de `ANTHROPIC_API_KEY`.

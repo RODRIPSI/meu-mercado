@@ -9,5 +9,5 @@ export default function Entrada() {
   if (!session) return <Redirect href="/login" />;
   if (recovering) return <Redirect href="/nova-senha" />;
   if (!house) return <Redirect href="/onboarding" />;
-  return <Redirect href="/listas" />;
+  return <Redirect href="/inicio" />;
 }

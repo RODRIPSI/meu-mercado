@@ -44,7 +44,8 @@ function Gate() {
           <Stack.Screen name="scanner" options={{ title: 'Ler código de barras', presentation: 'modal' }} />
           <Stack.Screen name="despensa" options={{ title: 'Despensa' }} />
           <Stack.Screen name="financas" options={{ title: 'Finanças' }} />
-          <Stack.Screen name="ofertas" options={{ title: 'Ofertas dos encartes' }} />
+          <Stack.Screen name="importar-lista" options={{ title: 'Importar lista' }} />
+          <Stack.Screen name="configuracoes" options={{ title: 'Configurações' }} />
           <Stack.Screen name="revisar-ofertas" options={{ title: 'Revisar ofertas' }} />
         </Stack.Protected>
       </Stack>

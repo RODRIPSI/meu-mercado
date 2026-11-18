@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Button, Chip, Field, Notice, Row, Screen, T } from '@/components/ui';
 import { friendlyError, supabase } from '@/lib/supabase';
 import { useCatalog } from '@/features/catalog';
@@ -9,7 +9,8 @@ const num = (s: string) => { const n = Number(s.replace(',', '.')); return s.tri
 
 export default function MercadoNovo() {
   const router = useRouter(); const { house } = useHouse(); const { chains, reload } = useCatalog();
-  const [chain, setChain] = useState<string | null>(null); const [name, setName] = useState(''); const [address, setAddress] = useState('');
+  const { chain: chainParam } = useLocalSearchParams<{ chain?: string }>();
+  const [chain, setChain] = useState<string | null>(chainParam ?? null); const [name, setName] = useState(() => chains.find((c) => c.id === chainParam) ? `${chains.find((c) => c.id === chainParam)!.name} – ` : ''); const [address, setAddress] = useState('');
   const [km, setKm] = useState(''); const [lat, setLat] = useState(''); const [lng, setLng] = useState(''); const [err, setErr] = useState('');
   const save = async () => {
     const { error } = await supabase.from('stores').insert({ house_id: house!.id, chain_id: chain, name: name.trim(), address: address.trim() || null, distance_km: num(km), lat: num(lat), lng: num(lng) });

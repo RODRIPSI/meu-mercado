@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useRouter } from 'expo-router';
-import { Badge, Button, Card, Empty, Field, Notice, Row, Screen, T } from '@/components/ui';
+import { Badge, Button, Card, Empty, Field, Notice, Row, T } from '@/components/ui';
 import { useCatalog } from '@/features/catalog';
 import { buildCompareRows } from '@/domain/compare';
 import { formatBRL } from '@/domain/money';
@@ -8,7 +8,7 @@ import { unitPriceLabel } from '@/domain/units';
 import { productLabel } from '@/lib/mappers';
 import { useHouse } from '@/features/house';
 
-export default function Comparador() {
+export default function ComparePanel() {
   const router = useRouter(); const { house } = useHouse();
   const { products, productMap, storeMap, prices, loading, offline, syncedAt } = useCatalog();
   const [q, setQ] = useState('');
@@ -16,17 +16,18 @@ export default function Comparador() {
   const best = (pid: string) => buildCompareRows({ productIds: [pid], products: productMap, stores: storeMap, prices }).find((r) => r.isBest);
 
   return (
-    <Screen>
+    <>
       {offline ? <Notice>Sem conexão — dados de {syncedAt ? new Date(syncedAt).toLocaleString('pt-BR') : 'sincronização anterior'}.</Notice> : null}
       <Field label="Buscar produto" value={q} onChangeText={setQ} placeholder="Arroz, leite, café…" />
       {house!.canEdit ? (
-        <Row>
-          <Button title="Novo produto" kind="secondary" style={{ flex: 1 }} onPress={() => router.push('/produto/novo')} />
-          <Button title="Registrar preço" style={{ flex: 1 }} onPress={() => router.push('/preco/novo')} />
-        </Row>
+        <>
+          <Row>
+            <Button title="Registrar preço" style={{ flex: 1 }} onPress={() => router.push('/preco/novo')} />
+            <Button title="Novo produto" kind="secondary" style={{ flex: 1 }} onPress={() => router.push('/produto/novo')} />
+          </Row>
+          <Button title="Importar preços (CSV)" kind="ghost" onPress={() => router.push('/importar')} />
+        </>
       ) : null}
-      <Button title="Ofertas dos encartes" kind="secondary" onPress={() => router.push('/ofertas')} />
-      {house!.canEdit ? <Button title="Importar preços (CSV)" kind="ghost" onPress={() => router.push('/importar')} /> : null}
       {!loading && shown.length === 0 ? <Empty title="Nenhum produto cadastrado" hint="Cadastre produtos e registre os preços que você encontrar. O app nunca inventa preços." /> : null}
       {shown.map((p) => {
         const b = best(p.id);
@@ -46,6 +47,6 @@ export default function Comparador() {
           </Card>
         );
       })}
-    </Screen>
+    </>
   );
 }

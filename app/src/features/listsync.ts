@@ -8,6 +8,7 @@ export interface ItemRow {
   id: string; list_id: string; house_id: string; product_id: string | null; name: string; qty: number; unit: any;
   status: 'pending' | 'bought' | 'skipped'; notes: string | null; priority: number; assignee: string | null;
   preferred_brand: string | null; est_price_cents: number | null; version: number; pendingSync?: boolean;
+  category_id: string | null; position: number | null; source_text: string | null; created_at?: string; updated_at?: string;
 }
 
 const QKEY = 'queue:v1';
@@ -23,7 +24,7 @@ function classify(error: any): RemoteResult {
 export function makeRemote(houseId: string): Remote {
   return {
     async insert(i: NewItem) {
-      const { error } = await supabase.from('list_items').insert({ list_id: i.listId, house_id: houseId, name: i.name, product_id: i.productId ?? null, qty: i.qty, unit: i.unit });
+      const { error } = await supabase.from('list_items').insert({ list_id: i.listId, house_id: houseId, name: i.name, product_id: i.productId ?? null, qty: i.qty, unit: i.unit, category_id: i.categoryId ?? null, notes: i.notes ?? null, preferred_brand: i.preferredBrand ?? null, position: i.position ?? null, source_text: i.sourceText ?? null });
       return classify(error);
     },
     async update(id, version, patch: Patch) {
